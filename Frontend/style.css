@@ -1,0 +1,150 @@
+body {
+    font-family: "Segoe UI", sans-serif;
+    margin: 30px;
+    padding: 0 20px;
+    text-align: center;
+    background-color: #111827;
+}
+
+h1 {
+    font-family: "Orbitron", sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: #60a5fa;
+    margin-bottom: 20px;
+}
+
+#box1 {
+    background: #1f2937;
+    border: 1px solid #374151;
+    border-radius: 16px;
+    padding: 24px 16px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+input {
+    padding: 10px 14px;
+    width: 280px;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #111827;
+    color: #f9fafb;
+    font-family: "Segoe UI", sans-serif;
+}
+
+input:focus {
+    outline: none;
+    border-color: #60a5fa;
+}
+
+input::placeholder {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+button {
+    padding: 10px 18px;
+    border-radius: 8px;
+    margin-left: 8px;
+    cursor: pointer;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Segoe UI", sans-serif;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+button:active {
+    background-color: #1e40af;
+}
+
+h2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-top: 1px solid #374151;
+    padding-top: 18px;
+    margin-top: 20px;
+    margin-bottom: 14px;
+}
+
+#task-container {
+    padding: 0;
+    margin: 0 auto;
+    max-width: 500px;
+}
+
+#task-container div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 11px 14px;
+    background: #111827;
+    border: 1px solid #374151;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-family: "Rajdhani", sans-serif;
+    font-size: 18px;
+    color: #f9fafb;
+}
+
+#task-container div span {
+    flex: 1;
+    text-align: left;
+}
+
+#task-container div button {
+    margin-left: 8px;
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+}
+
+#task-container div {
+    animation: slideIn 0.25s ease;
+}
+
+#task-container div span {
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.removing {
+    animation: slideOut 0.3s ease forwards;
+}
+
+.completed-text {
+    color: #6b7280 !important;
+}
