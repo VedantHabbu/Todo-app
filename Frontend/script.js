@@ -1,10 +1,11 @@
 const addButton = document.getElementById("add-btn");
 const taskInput = document.getElementById("task-input");
 const taskContainer = document.getElementById("task-container");
+const API_URL = "https://todo-app-production-9014.up.railway.app";
 
 let tasks = [];
 
-fetch("http://127.0.0.1:8000/todos")
+fetch(`${API_URL}/todos`)
     .then(response => response.json())
     .then(data => {
         tasks = data;
@@ -22,7 +23,7 @@ addButton.addEventListener("click", function() {
         return;
     }
 
-    fetch("http://127.0.0.1:8000/todos", {
+    fetch(`${API_URL}/todos`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -71,7 +72,7 @@ function addTask(todo){
     taskInput.value = "";
 
     removeButton.addEventListener("click", function(){
-        fetch(`http://127.0.0.1:8000/todos/${todo.id}`, {
+        fetch(`${API_URL}/todos/${todo.id}`, {
             method: "DELETE"
         })
         .then(() => {
@@ -91,7 +92,7 @@ function addTask(todo){
             taskText.style.textDecoration = "none";
             taskText.classList.remove("completed-text");
 
-            fetch(`http://127.0.0.1:8000/todos/${todo.id}`, {
+            fetch(`${API_URL}/todos/${todo.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
@@ -112,7 +113,7 @@ function addTask(todo){
             taskText.style.textDecoration = "line-through";
             taskText.classList.add("completed-text");
 
-            fetch(`http://127.0.0.1:8000/todos/${todo.id}`, {
+            fetch(`${API_URL}/todos/${todo.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
