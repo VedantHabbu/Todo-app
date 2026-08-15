@@ -1,12 +1,16 @@
-import sqlite3
+import os
+import psycopg
+
+def get_connection():
+    return psycopg.connect(os.getenv("DATABASE_URL"))
 
 def init_db():
-    conn = sqlite3.connect("todo.db")
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS todos (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
             task TEXT NOT NULL,
             completed BOOLEAN NOT NULL
         )
@@ -16,31 +20,31 @@ def init_db():
     conn.close()
 
 def add_todo(task, completed):
-    conn = sqlite3.connect("todo.db")
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute(
-        "INSERT INTO todos (task, completed) VALUES (?, ?)",
+        "INSERT INTO todos (task, completed) VALUES (%s, %s) RETURNING id",
         (task, completed)
     )
 
     conn.commit()
 
-    todo_id = cursor.lastrowid
+    todo_id = cursor.fetchone()[0]
 
     conn.close()
 
     return todo_id
 
 def get_todos():
-    conn = sqlite3.connect("todo.db")
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("SELECT * FROM todos")
 
     rows = cursor.fetchall()
 
-    todos=[]
+    todos = []
 
     for row in rows:
         todo={
@@ -55,11 +59,11 @@ def get_todos():
     return todos
 
 def update_todo(task, completed, id):
-    conn = sqlite3.connect("todo.db")
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute(
-        "UPDATE todos SET task = ?, completed = ? WHERE id = ?",
+        "UPDATE todos SET task = %s, completed = %s WHERE id = %s",
         (task,completed,id)
         )
 
@@ -67,11 +71,11 @@ def update_todo(task, completed, id):
     conn.close()
 
 def delete_todo(id):
-    conn = sqlite3.connect("todo.db")
+    conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute(
-        "DELETE FROM todos WHERE id = ?",
+        "DELETE FROM todos WHERE id = %s",
         (id,)
     )
 
