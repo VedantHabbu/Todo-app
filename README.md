@@ -10,6 +10,13 @@ https://todo-app-indol-iota-18.vercel.app
 Backend API:
 https://todo-app-production-9014.up.railway.app
 
+### Backend Routes
+
+- GET `/todos`
+- POST `/todos`
+- PUT `/todos/{id}`
+- DELETE `/todos/{id}`
+
 API Documentation:
 https://todo-app-production-9014.up.railway.app/docs
 
